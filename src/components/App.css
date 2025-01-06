@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400&display=swap');
+
+body {
+    text-align: center;
+    font-family: 'Quantico', sans-serif; /* ใช้ฟอนต์ที่นำเข้า */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* สีพื้นหลังของหน้าทั้งหมด */
+}
+
+ul {
+    padding: 0;
+    margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
+    max-width: 600px; /* กำหนดความกว้างของรายการ */
+}
+
+li {
+    list-style: none; /* ลบจุด bullet ของรายการ */
+    display: flex; /* แสดงเนื้อหาในรูปแบบ flexbox */
+    justify-content: space-between; /* จัดตำแหน่งเนื้อหาให้กระจายออก */
+    align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    padding: 15px; /* ระยะห่างด้านใน */
+    background-color: #ffffff; /* สีพื้นหลัง */
+    border: 1px solid gray; /* เส้นขอบ */
+    border-radius: 5px; /* มุมโค้งมน */
+    margin-bottom: 10px; /* ระยะห่างระหว่างแต่ละรายการ */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เงาเพื่อความสวยงาม */
+    width: 100%; /* ให้กล่องขยายเต็มความกว้างของ ul */
+    box-sizing: border-box; /* รวม padding และ border ในขนาด */
+    transition: transform 0.2s, box-shadow 0.2s; /* เพิ่มเอฟเฟกต์เมื่อ hover */
+}
+
+li:hover {
+    transform: scale(1.02); /* ขยายขนาดเล็กน้อยเมื่อ hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อ hover */
+}
+
+h1 {
+    margin-top: 20px;
+    color: #333;
+}
