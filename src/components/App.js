@@ -1,18 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Items from "./Items";
 import "./App.css";
-import FormCoponent from './Form';
+import FormCoponent from "./Form";
 
-let Header = () => {
-  return (
-    <h1 style={{ color: "blue", fontSize: "30px" }}>
-      โปรแกรม รายรับ - รายจ่าย OH mY PC
-    </h1>
-  );
-};
-
-let Transaction = () => {
-  const data = [
+function App() {
+  const initdata = [
     { title: "ค่าเดินทาง", amount: -150 },
     { title: "ค่าอาหารกลางวัน", amount: -350 },
     { title: "เงินเดือน", amount: 25000 },
@@ -43,33 +36,53 @@ let Transaction = () => {
     // { title: "ค่าเดินทางไปต่างจังหวัด", amount: -1500 },
     // { title: "ซื้อของฝาก", amount: -600 },
     // { title: "เงินคืนจากประกัน", amount: 2500 },
-  ]
+  ];
+  const [items, setItems] = useState(initdata);
+  const onAddNewItem = (newItem) => {
+    console.log("ข้อมูลที่ได้รับมา ", newItem);
+    setItems((prevItem) => {
+      return [newItem, ...prevItem];
+    });
+  };
+  return (
+    <div>
+      <Header />
+      <FormCoponent onAddItem={onAddNewItem} />
+      <Transaction items={items} />
+    </div>
+  );
+}
+
+let Header = () => {
+  return (
+    <h1 style={{ color: "blue", fontSize: "30px" }}>
+      โปรแกรม รายรับ - รายจ่าย OH mY PC
+    </h1>
+  );
+};
+
+let Transaction = (props) => {
+  const { items } = props;
   return (
     <div>
       <ul className="style-none">
-        <Items key={1} title={"ทดสอบ " + data[0].title} amount={data[0].amount} />
+        <Items
+          key={1}
+          title={"ทดสอบ " + items[0].title}
+          amount={items[0].amount}
+        />
         <Items key={2} title="ค่าเดินทาง" amount="-250" />
         <Items key={3} title="ค่าอาหาร" amount="-700" />
-        <Items key={4} title="แฮกนาซ่ารับเงินดิจิตอล" amount="+9999999999999" />
-        {/* {data.map((item) => {
+        <Items key={4} title="แฮกนาซ่ารับเงินดิจิตอล" amount="9999999999999" />
+        {/* {items.map((item) => {
           return <Items title={item.title} amount={item.amount} />;
         })} */}
-        {data.map((item) => {
-          return <Items key={uuidv4()} {...item}/>; //props spread operator
+        {items.map((item) => {
+          return <Items key={uuidv4()} {...item} />; //items spread operator
         })}
       </ul>
     </div>
   );
 };
-
-function App() {
-  return (
-    <div>
-      <Header />
-      <Transaction />
-      <FormCoponent />
-    </div>
-  );
-}
 
 export default App;
