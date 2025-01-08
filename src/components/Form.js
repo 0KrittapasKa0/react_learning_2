@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./Form.css";
 const FormCoponent = (props) => {
-
+  console.log("Test");
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("0");
+  const [formValid, setFormValid] = useState(false);
 
   const inputTitle = (event) => {
     setTitle(event.target.value);
@@ -20,10 +21,22 @@ const FormCoponent = (props) => {
       title: title,
       amount: Number(amount),
     };
-    props.onAddItem(itemData)
+    props.onAddItem(itemData);
     setTitle("");
-    setAmount("");
+    setAmount("0");
   };
+  useEffect(() => {
+    const checkData =
+      title.trim().length > 0 &&
+      title != null &&
+      title !== "" &&
+      amount != null &&
+      amount !== "" &&
+      !isNaN(amount);
+    if (checkData) {
+      setFormValid(true);
+    }
+  }, [title, amount]);
   return (
     <div className="main">
       {" "}
@@ -52,7 +65,9 @@ const FormCoponent = (props) => {
           />
         </div>
         <div>
-          <button type="submit">เพิ่มรายการ</button>
+          <button type="submit" disabled={!formValid}>
+            เพิ่มรายการ
+          </button>
         </div>
       </form>
     </div>
