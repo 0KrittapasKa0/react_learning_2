@@ -1,49 +1,50 @@
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./Form.css";
-const FormCoponent = (props) => {
-  console.log("Test");
+
+const FormComponent = (props) => {
   const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState("0");
+  const [amount, setAmount] = useState("");
   const [formValid, setFormValid] = useState(false);
 
   const inputTitle = (event) => {
     setTitle(event.target.value);
   };
+
   const inputAmount = (event) => {
     setAmount(event.target.value);
   };
+
   const saveItem = (event) => {
     event.preventDefault();
-    // console.log("บันทึกข้อมูลเรียบร้อย");
+
+    if (!formValid) {
+      alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+      return;
+    }
+
     const itemData = {
       id: uuidv4(),
-      title: title,
+      title: title.trim(),
       amount: Number(amount),
     };
+
     props.onAddItem(itemData);
     setTitle("");
-    setAmount("0");
+    setAmount("");
   };
+
   useEffect(() => {
     const checkData =
-      title.trim().length > 0 &&
-      title != null &&
-      title !== "" &&
-      amount != null &&
-      amount !== "" &&
+      title.trim().length > 0 && 
+      amount.trim().length > 0 && 
       !isNaN(amount);
-    if (checkData) {
-      setFormValid(true);
-    }
+    setFormValid(checkData);
   }, [title, amount]);
+
   return (
     <div className="main">
-      {" "}
-      {/* ใช้ div className="main" สำหรับควบคุมการจัดตำแหน่ง */}
       <form className="mainForm" onSubmit={saveItem}>
-        {" "}
-        {/* ใช้ className="mainForm" สำหรับฟอร์ม */}
         <div className="form-control">
           <label htmlFor="itemName">ชื่อรายการ</label>
           <input
@@ -74,4 +75,4 @@ const FormCoponent = (props) => {
   );
 };
 
-export default FormCoponent;
+export default FormComponent;
