@@ -30,20 +30,18 @@ function App() {
     setReportIncome(income);
     setResportExpense(expense);
   }, [items, ReportIncome, ReportExpense]);
-  const [count, setCount] = useState(0);
+  const [showReport, setshowReport] = useState(false);
   const reducer = (state, action) => {
     switch (action.type) {
-      case "Add":
-        return state + action.payload;
-      case "Subtract":
-        return state - action.payload;
-      case "Clear":
-        return 0;
+      case "Show":
+        return setshowReport(true);
+      case "Hide":
+        return setshowReport(false);
       default:
         return null;
     }
   };
-  const [result, dispatch] = useReducer(reducer, count);
+  const [result, dispatch] = useReducer(reducer, showReport);
   return (
     <DataContext.Provider
       value={{
@@ -53,17 +51,12 @@ function App() {
     >
       <div>
         <Header />
-        <ReportComponent />
+        {showReport && <ReportComponent />}
         <FormCoponent onAddItem={onAddNewItem} />
         <Transaction items={items} />
         <h1>Hello React Count : {result}</h1>
-        <button onClick={() => dispatch({ type: "Add", payload: 10 })}>
-          เพิ่ม
-        </button>{" "}
-        <button onClick={() => dispatch({ type: "Subtract", payload: 5 })}>
-          ลด
-        </button>{" "}
-        <button onClick={() => dispatch({ type: "Clear" })}>ล้าง</button>
+        <button onClick={() => dispatch({ type: "Show" })}>แสดง</button>
+        <button onClick={() => dispatch({ type: "Hide" })}>ลด</button>
       </div>
     </DataContext.Provider>
   );
