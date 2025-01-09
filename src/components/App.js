@@ -16,7 +16,10 @@ function App() {
     });
   };
   return (
-    <DataContext.Provider value={{name:"Krittapas",age: 20}}>
+    <DataContext.Provider value={{
+      income : 9000000,
+      expense : -300000
+    }}>
       <div>
         <ReportComponent />
         <Header />
@@ -37,9 +40,6 @@ let Header = () => {
 
 let Transaction = (props) => {
   const { items } = props;
-  const data = useContext(DataContext);
-  const name = data.name;
-  const age = data.age;
   return (
     <div>
         <ul className="style-none">
@@ -47,7 +47,6 @@ let Transaction = (props) => {
             return <Items key={uuidv4()} {...item} />; //items spread operator
           })}
         </ul>
-          <p>{name} Age {age}</p>
     </div>
   );
 };
