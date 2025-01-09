@@ -1,0 +1,47 @@
+/* Add this in a CSS file or inline */
+.report-container {
+    font-family: 'Arial', sans-serif;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 400px;
+    border-radius: 8px;
+    background: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .report-container h4 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .report-container h1 {
+    font-size: 32px;
+    color: #4CAF50; /* Green for balance */
+    margin-bottom: 20px;
+  }
+  
+  .report {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .report p {
+    font-size: 16px;
+    margin: 0;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  .report p:first-child {
+    color: #4CAF50; /* Green for income */
+    background-color: #e8f5e9;
+  }
+  
+  .report p:last-child {
+    color: #F44336; /* Red for expense */
+    background-color: #fdecea;
+  }
+  

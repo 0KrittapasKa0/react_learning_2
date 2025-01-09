@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useReducer, act } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Items from "./Items";
 import "./App.css";
@@ -29,7 +29,21 @@ function App() {
         .reduce((totol, element) => (totol -= element), 0) * -1;
     setReportIncome(income);
     setResportExpense(expense);
-  }, [items,ReportIncome,ReportExpense]);
+  }, [items, ReportIncome, ReportExpense]);
+  const [count, setCount] = useState(0);
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "Add":
+        return state + action.payload;
+      case "Subtract":
+        return state - action.payload;
+      case "Clear":
+        return 0;
+      default:
+        return null;
+    }
+  };
+  const [result, dispatch] = useReducer(reducer, count);
   return (
     <DataContext.Provider
       value={{
@@ -42,6 +56,14 @@ function App() {
         <ReportComponent />
         <FormCoponent onAddItem={onAddNewItem} />
         <Transaction items={items} />
+        <h1>Hello React Count : {result}</h1>
+        <button onClick={() => dispatch({ type: "Add", payload: 10 })}>
+          เพิ่ม
+        </button>{" "}
+        <button onClick={() => dispatch({ type: "Subtract", payload: 5 })}>
+          ลด
+        </button>{" "}
+        <button onClick={() => dispatch({ type: "Clear" })}>ล้าง</button>
       </div>
     </DataContext.Provider>
   );
