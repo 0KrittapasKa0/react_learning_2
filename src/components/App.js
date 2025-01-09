@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Items from "./Items";
 import "./App.css";
 import FormCoponent from "./Form";
 import DataContext from "../data/DataContext";
+import ReportComponent from "./ReportComponent";
 
 function App() {
   const initdata = [];
@@ -15,8 +16,9 @@ function App() {
     });
   };
   return (
-    <DataContext.Provider value={"Krittapas"}>
+    <DataContext.Provider value={{name:"Krittapas",age: 20}}>
       <div>
+        <ReportComponent />
         <Header />
         <FormCoponent onAddItem={onAddNewItem} />
         <Transaction items={items} />
@@ -35,6 +37,9 @@ let Header = () => {
 
 let Transaction = (props) => {
   const { items } = props;
+  const data = useContext(DataContext);
+  const name = data.name;
+  const age = data.age;
   return (
     <div>
         <ul className="style-none">
@@ -42,9 +47,7 @@ let Transaction = (props) => {
             return <Items key={uuidv4()} {...item} />; //items spread operator
           })}
         </ul>
-        <DataContext.Consumer>
-        {value=><p>{value}</p>}
-      </DataContext.Consumer>
+          <p>{name} Age {age}</p>
     </div>
   );
 };
