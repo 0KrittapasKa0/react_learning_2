@@ -4,10 +4,8 @@ const ReportComponent = () => {
     const {income,expense} = useContext(DataContext);
   return (
     <div>
-      <DataContext.Consumer>
-        {(data) => <p>รายรับ {data.income} รายจ่าย {data.expense}</p>}
-      </DataContext.Consumer>
-      <p>แบบ useContext รายรับ {income} รายจ่าย {expense}</p>
+      <p>รายรับ {income}</p>
+      <p>รายจ่าย {expense}</p>
     </div>
   );
 };
