@@ -12,7 +12,10 @@ function App() {
   const [items, setItems] = useState(initdata);
   const [ReportIncome, setReportIncome] = useState(0);
   const [ReportExpense, setResportExpense] = useState(0);
-
+  const formatNumber = (number, locale = 'en-US', options = {}) => {
+    const formatter = new Intl.NumberFormat(locale, options);
+    return formatter.format(number);
+  };
   const onAddNewItem = (newItem) => {
     setItems((prevItems) => [newItem, ...prevItems]);
   };
@@ -74,7 +77,7 @@ function App() {
               path="/"
               element={
                 <>
-                  {showReport && <ReportComponent />}
+                  {showReport && <ReportComponent formatNumber={formatNumber} />}
                   <ButtonControlComponent />
                 </>
               }
