@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400&display=swap');
 
+/* Global Styles */
 body {
     text-align: center;
     font-family: 'Quantico', sans-serif; /* ใช้ฟอนต์ที่นำเข้า */
@@ -8,34 +9,181 @@ body {
     background-color: #f4f4f4; /* สีพื้นหลังของหน้าทั้งหมด */
 }
 
-ul {
-    padding: 0;
-    margin: 20px auto; /* จัดให้อยู่กึ่งกลาง */
-    max-width: 400px; /* กำหนดความกว้างของรายการ */
-}
-
-li {
-    list-style: none; /* ลบจุด bullet ของรายการ */
-    display: flex; /* แสดงเนื้อหาในรูปแบบ flexbox */
-    justify-content: space-between; /* จัดตำแหน่งเนื้อหาให้กระจายออก */
-    align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
-    padding: 15px; /* ระยะห่างด้านใน */
-    background-color: #ffffff; /* สีพื้นหลัง */
-    border: 1px solid gray; /* เส้นขอบ */
-    border-radius: 5px; /* มุมโค้งมน */
-    margin-bottom: 10px; /* ระยะห่างระหว่างแต่ละรายการ */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เงาเพื่อความสวยงาม */
-    width: 100%; /* ให้กล่องขยายเต็มความกว้างของ ul */
-    box-sizing: border-box; /* รวม padding และ border ในขนาด */
-    transition: transform 0.2s, box-shadow 0.2s; /* เพิ่มเอฟเฟกต์เมื่อ hover */
-}
-
-li:hover {
-    transform: scale(1.02); /* ขยายขนาดเล็กน้อยเมื่อ hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อ hover */
-}
-
 h1 {
     margin-top: 20px;
-    color: #333;
+    color: #1e88e5; /* สีฟ้าที่ดูสบายตา */
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
 }
+
+/* Menu Styles */
+.menu-item {
+    display: inline-block;
+    margin: 10px;
+}
+
+.menu-item a {
+    text-decoration: none; /* ลบเส้นใต้ */
+    color: #1e88e5; /* สีน้ำเงิน */
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.menu-item a:hover {
+    background-color: #e3f2fd; /* สีฟ้าอ่อน */
+    color: #1565c0; /* สีน้ำเงินเข้ม */
+}
+
+/* Button Styles */
+button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+button.show {
+    background-color: #4caf50; /* สีเขียว */
+    color: #fff;
+}
+
+button.show:hover {
+    background-color: #43a047; /* เข้มขึ้นเมื่อ hover */
+}
+
+button.hide {
+    background-color: #e53935; /* สีแดง */
+    color: #fff;
+}
+
+button.hide:hover {
+    background-color: #d32f2f; /* เข้มขึ้นเมื่อ hover */
+}
+
+/* Report Component Styles */
+.report-container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.report-container h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.report-container h1 {
+    font-size: 2rem;
+    color: #1e88e5;
+    margin-bottom: 20px;
+}
+
+.report {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.report p {
+    margin: 0;
+}
+
+.report .income {
+    color: #4caf50; /* สีเขียว */
+    font-weight: bold;
+}
+
+.report .expense {
+    color: #e53935; /* สีแดง */
+    font-weight: bold;
+}
+
+/* Transaction List Styles */
+.transaction-list {
+    padding: 0;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+.transaction-list-item {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.transaction-list-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Button Container Styles */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  /* General Button Styles */
+  button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Button Hover Effect */
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Show Button (Green) */
+  button.show {
+    background-color: #4caf50; /* เขียว */
+    color: white;
+  }
+  
+  button.show:hover {
+    background-color: #45a049; /* เขียวเข้ม */
+  }
+  
+  /* Hide Button (Red) */
+  button.hide {
+    background-color: #e53935; /* แดง */
+    color: white;
+  }
+  
+  button.hide:hover {
+    background-color: #d32f2f; /* แดงเข้ม */
+  }
+  

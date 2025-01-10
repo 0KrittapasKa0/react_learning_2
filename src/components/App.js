@@ -1,83 +1,113 @@
-import { useContext, useEffect, useState, useReducer, act } from "react";
+import { useContext, useEffect, useState, useReducer } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Items from "./Items";
 import "./App.css";
 import FormCoponent from "./Form";
 import DataContext from "../data/DataContext";
-import ReportComponent from "./ReportComponent";
-import { element } from "prop-types";
+import { ReportComponent, ButtonControlComponent } from './ReportComponent';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function App() {
   const initdata = [];
   const [items, setItems] = useState(initdata);
   const [ReportIncome, setReportIncome] = useState(0);
   const [ReportExpense, setResportExpense] = useState(0);
+
   const onAddNewItem = (newItem) => {
-    console.log("ข้อมูลที่ได้รับมา ", newItem);
-    setItems((prevItem) => {
-      return [newItem, ...prevItem];
-    });
+    setItems((prevItems) => [newItem, ...prevItems]);
   };
+
   useEffect(() => {
-    const amounts = items.map((items) => items.amount);
+    const amounts = items.map((item) => item.amount);
     const income = amounts
-      .filter((element) => element > 0)
-      .reduce((totol, element) => (totol += element), 0);
+      .filter((value) => value > 0)
+      .reduce((total, value) => total + value, 0);
     const expense =
       amounts
-        .filter((element) => element < 0)
-        .reduce((totol, element) => (totol -= element), 0) * -1;
+        .filter((value) => value < 0)
+        .reduce((total, value) => total + value, 0) * -1;
+
     setReportIncome(income);
     setResportExpense(expense);
-  }, [items, ReportIncome, ReportExpense]);
-  const [showReport, setshowReport] = useState(false);
+  }, [items]);
+
+  const [showReport, setShowReport] = useState(false);
+
   const reducer = (state, action) => {
     switch (action.type) {
       case "Show":
-        return setshowReport(true);
+        setShowReport(true);
+        return true;
       case "Hide":
-        return setshowReport(false);
+        setShowReport(false);
+        return false;
       default:
-        return null;
+        return state;
     }
   };
+
   const [result, dispatch] = useReducer(reducer, showReport);
+
   return (
     <DataContext.Provider
       value={{
         income: ReportIncome,
         expense: ReportExpense,
+        dispatch: dispatch,
       }}
     >
       <div>
         <Header />
-        {showReport && <ReportComponent />}
-        <FormCoponent onAddItem={onAddNewItem} />
-        <Transaction items={items} />
-        <h1>Hello React Count : {result}</h1>
-        <button onClick={() => dispatch({ type: "Show" })}>แสดง</button>
-        <button onClick={() => dispatch({ type: "Hide" })}>ลด</button>
+        <Router>
+          <nav>
+            <ul className="menu">
+              <li className="menu-item">
+                <Link to="/">ข้อมูลบัญชี</Link>
+              </li>
+              <li className="menu-item">
+                <Link to="/add">บันทึกข้อมูล</Link>
+              </li>
+            </ul>
+          </nav>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  {showReport && <ReportComponent />}
+                  <ButtonControlComponent />
+                </>
+              }
+            />
+            <Route
+              path="/add"
+              element={
+                <>
+                  <FormCoponent onAddItem={onAddNewItem} />
+                  <Transaction items={items} />
+                </>
+              }
+            ></Route>
+          </Routes>
+        </Router>
       </div>
     </DataContext.Provider>
   );
 }
 
-let Header = () => {
-  return (
-    <h1 style={{ color: "blue", fontSize: "30px" }}>
-      โปรแกรม รายรับ - รายจ่าย OH mY PC
-    </h1>
-  );
+const Header = () => {
+  return <h1>โปรแกรม รายรับ - รายจ่าย OH mY PC</h1>;
 };
 
-let Transaction = (props) => {
-  const { items } = props;
+const Transaction = ({ items }) => {
   return (
     <div>
-      <ul className="style-none">
-        {items.map((item) => {
-          return <Items key={uuidv4()} {...item} />; //items spread operator
-        })}
+      <ul className="transaction-list">
+        {items.map((item) => (
+          <li className="transaction-list-item" key={uuidv4()}>
+            <Items {...item} />
+          </li>
+        ))}
       </ul>
     </div>
   );
